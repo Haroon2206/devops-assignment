@@ -1,6 +1,6 @@
 # PGR301 DevOps in the Cloud - Retake: 72-Hour Written Individual Home Exam
 
-## Delivery Requirements
+### Delivery Requirements
 The exam assignment, code, and necessary files are available in the GitHub repository:
 [GitHub Repository](https://github.com/glennbechdevops/eksamen-2025-konte)
 
