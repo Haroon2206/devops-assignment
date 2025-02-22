@@ -14,11 +14,11 @@ provider "statuscake" {
 resource "statuscake_uptime_check" "example" {
   check_interval = 300
   confirmation   = 3
-  name           = "example-site"
+  name           = "VG website Status Up Check"
   trigger_rate   = 10
 
   http_check {
-    timeout          = 20
+    timeout          = 15
     validate_ssl     = true
     status_codes = [
       "200"
@@ -30,6 +30,15 @@ resource "statuscake_uptime_check" "example" {
   }
   tags = [
     "production",
+  ]
+}
+
+resource "statuscake_contact_group" "operations_team" {
+  name     = "Operations Team"
+  ping_url = "https://www.vg.no"
+
+  email_addresses = [
+    "Haroon@live.no"
   ]
 }
 
