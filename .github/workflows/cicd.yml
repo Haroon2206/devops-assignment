@@ -28,14 +28,14 @@ jobs:
         working-directory: infrastructure
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -var "statuscake_api_token=${{ secrets.STATUSCAKE_API_TOKEN }}"
         working-directory: infrastructure
         env:
           statuscake_api_token: ${{ secrets.STATUSCAKE_API_TOKEN }}
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var "statuscake_api_token=${{ secrets.STATUSCAKE_API_TOKEN }}"
         env:
           statuscake_api_token: ${{ secrets.STATUSCAKE_API_TOKEN }}
         working-directory: infrastructure
