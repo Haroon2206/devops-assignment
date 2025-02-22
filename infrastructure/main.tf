@@ -11,37 +11,35 @@ provider "statuscake" {
   api_token = var.statuscake_api_token
 }
 
-resource "statuscake_uptime_check" "example" {
-  check_interval = 300
-  confirmation   = 3
+module "statuscake_uptime_vg" {
+  source         = "./modules/statuscake_uptime"
+  check_interval = var.check_interval
+  confirmation   = var.confirmation
   name           = "VG website Status Up Check"
-  trigger_rate   = 10
-
-  http_check {
-    timeout          = 15
-    validate_ssl     = true
-    status_codes = [
-      "200"
-    ]
-  }
-
-  monitored_resource {
-    address = "https://www.vg.no"
-  }
-  tags = [
-    "production",
-  ]
+  trigger_rate   = var.trigger_rate
+  timeout        = var.timeout
+  validate_ssl   = true
+  status_codes   = ["200"]
+  address        = "https://www.vg.no"
+  tags           = ["production"]
 }
 
-resource "statuscake_contact_group" "operations_team" {
-  name     = "Operations Team"
-  ping_url = "https://www.vg.no"
-
-  email_addresses = [
-    "Haroon@live.no"
-  ]
+module "statuscake_uptime_xkcd" {
+  source         = "./modules/statuscake_uptime"
+  check_interval = var.check_interval
+  confirmation   = var.confirmation
+  name           = "xkcd website Status Up Check"
+  trigger_rate   = var.trigger_rate
+  timeout        = var.timeout
+  validate_ssl   = true
+  status_codes   = ["200"]
+  address        = "https://xkcd.com"
+  tags           = ["development"]
 }
 
-output "example_com_uptime_check_id" {
-  value = statuscake_uptime_check.example.id
+module "statuscake_contact_group"{
+source = "./modules/contact_group"
+name= "Monitoring Team"
+ping_url= "https://xkcd.com"
+email_addresses="haroon@live.no"
 }
