@@ -24,10 +24,12 @@ jobs:
           terraform_version: 1.6.0
 
       - name: Terraform Init
-        run: cd infrastructure && terraform init
+        run: terraform init
+        working-directory: infrastructure
 
       - name: Terraform Plan
         run: terraform plan
+        working-directory: infrastructure
         env:
           statuscake_api_token: ${{ secrets.STATUSCAKE_API_TOKEN }}
 
@@ -36,3 +38,4 @@ jobs:
         run: terraform apply -auto-approve
         env:
           statuscake_api_token: ${{ secrets.STATUSCAKE_API_TOKEN }}
+        working-directory: infrastructure
